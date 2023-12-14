@@ -1,0 +1,49 @@
+﻿@using Newtonsoft.Json;
+@model DB_Project.Models.IngredientForDishModel
+
+@{
+    var tmp = TempData["UnusedIngredients"] as string;
+    var ingredients = JsonConvert.DeserializeObject<List<IngredientForDishModel>>(tmp);
+    ViewData["Title"] = "AddIngredient";
+}
+
+<h1>AddIngredient</h1>
+
+<h4>IngredientForDishModel</h4>
+<hr />
+<p>
+    <a asp-action="CreateIngredient" asp-controller="Dish">Create New</a>
+</p>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddIngredient">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <select asp-for="IngredientId">
+                    @foreach (var ing in ingredients)
+                    {
+                        <option value="@ing.IngredientId">@ing.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Gram" class="control-label"></label>
+                <input asp-for="Gram" class="form-control" />
+                <span asp-validation-for="Gram" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Add" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

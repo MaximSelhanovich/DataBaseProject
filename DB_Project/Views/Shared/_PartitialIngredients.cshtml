@@ -1,0 +1,51 @@
+﻿@model DB_Project.Models.DishModel
+@if (Model != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Ingredient Name
+                </th>
+                <th>
+                    Gram
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Ingredients)
+            {
+                    <tr>
+                        <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                        @Html.DisplayFor(modelItem => item.Gram)
+                        </td>
+                        <td>
+                        @Html.ActionLink("Edit", "EditIngredient", "Dish", new {  id=item.IngredientId }) |
+                        @Html.ActionLink("Details", "DetailsIngredient", "Dish", new { id=item.IngredientId }) |
+                        @Html.ActionLink("Delete", "DeleteIngredient", "Dish", new { id=item.IngredientId })
+                        </td>
+                    </tr>
+            }
+        </tbody>
+    </table>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <div>
+                        <a asp-action="Index" asp-controller="Dish">Back to List</a>
+                    </div>
+                </th>
+                <th>
+                </th>
+                <th>
+                    <a asp-action="AddIngredient" asp-controller="Dish">Add ingredient</a>
+                </th>
+            </tr>
+        </thead>
+    </table>
+}
